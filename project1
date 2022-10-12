@@ -10,10 +10,10 @@ con = a.connect(
 def addbook():
     bn = input("enter the book ")
     c = input("enter the book code ")
-    t = input("enter the book ")
+    t = input("enter books ")
     s = input("enter the subject ")
     data = (bn, c, t, s)
-    sql = "insert books value(%s,%s,%s,%s)"
+    sql = 'insert books values(%s,%s,%s,%s)'
     c = con.cursor()
     c.execute(sql, data)
     con.commit()
@@ -30,11 +30,11 @@ def issueb():
     a = "insert into issue values(%s,%s,%s,%s)"
     data = (n, r, co, d)
     c = con.cursor()
-    c.execute(a, data)
+    c.execute(a,data)
     con.commit()
     print("______________________________________________________")
     print("book issued to ", n)
-    bookup(co, -1)
+    bookup(co,-1)
 
 
 def submitb():
@@ -42,14 +42,14 @@ def submitb():
     r = input("enter reg ")
     co = input("enter book code ")
     d = input("enter the date")
-    a = "insert into issue values(%s,%s,%s,%s)"
+    a = 'insert into issue values(%s,%s,%s,%s)'
     data = (n, r, co, d)
     c = con.cursor()
     c.execute(a, data)
     con.commit()
     print("______________________________________________________")
     print("book submitted", n)
-    bookup(co, 1)
+    bookup(co,1)
 
 
 def bookup(co, u):
@@ -68,8 +68,8 @@ def bookup(co, u):
 
 def dbook():
     ac = input("Enter Book Code ")
-    a = 'delete from books where bcode= %s*'
-    data = (ac,)
+    a = 'delete from books where bcode = %s'
+    data = (ac, )
     c = con.cursor()
     c.execute(a, data)
     con.commit()
@@ -78,7 +78,7 @@ def dbook():
 
 def dispbook():
     a = "select * from books"
-    c = con.cursorl()
+    c = con.cursor()
     c.execute(a)
     myresult = c.fetchall()
     for i in myresult:
@@ -91,35 +91,31 @@ def dispbook():
 
 
 def main():
-    print(
-        """      LIBRARY MANAGER
+    print('''      LIBRARY MANAGER
     1. ADD BOOK
     2. ISSUE BOOK
     3. SUBMIT BOOK
     4. DELETE BOOK
     5. DISPLAY BOOKS
-    """
-        
-    )
-
+    ''''')
     choice = input("Enter Task No : ")
     print(">------------------------------------------<")
-    if choice == "1":
+    if (choice == "1"):
         addbook()
-    elif choice == "2":
+    elif (choice == "2"):
         issueb()
-    elif choice == "3":
+    elif (choice == "3"):
         submitb()
-    elif choice == "4":
+    elif (choice == '4'):
         dbook()
-    elif choice == "5":
+    elif (choice == '5'):
         dispbook()
     else:
         print(" Wrong choice")
-
-
 main()
-# mysql table project -
+
+
+'''mysql table project -
 mysql> desc books;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
@@ -148,3 +144,4 @@ desc submit;
 | bcode  | int         | YES  |     | NULL    |       |
 | submit | varchar(50) | YES  |     | NULL    |       |
 +--------+-------------+------+-----+---------+-------+
+'''
