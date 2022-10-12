@@ -119,3 +119,32 @@ def main():
 
 
 main()
+# mysql table project -
+mysql> desc books;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| bname   | varchar(50) | YES  |     | NULL    |       |
+| bcode   | varchar(10) | YES  |     | NULL    |       |
+| total   | int         | YES  |     | NULL    |       |
+| subject | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+desc issue;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| regno | varchar(10) | YES  |     | NULL    |       |
+| bcode | int         | YES  |     | NULL    |       |
+| issue | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+desc submit;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(50) | YES  |     | NULL    |       |
+| regno  | varchar(10) | YES  |     | NULL    |       |
+| bcode  | int         | YES  |     | NULL    |       |
+| submit | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
