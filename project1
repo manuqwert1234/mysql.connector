@@ -68,9 +68,9 @@ def bookup(co, u):
 
 def dbook():
     ac = input("Enter Book Code ")
-    a = "delete from books where BCODE = %s*"
+    a = 'delete from books where bcode= %s*'
     data = (ac,)
-    c = con.cursorl()
+    c = con.cursor()
     c.execute(a, data)
     con.commit()
     main()
@@ -84,7 +84,7 @@ def dispbook():
     for i in myresult:
         print("Book Name : ", i[0])
         print("Book Code :", i[1])
-        print("Total : ", i(2))
+        print("Total : ", i[2])
         print("subject :", i[3])
         print(">------------------------------------------<")
     main()
