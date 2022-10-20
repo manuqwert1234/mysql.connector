@@ -21,11 +21,13 @@ def addbook():
     print("_____________________________________________________")
     print("wait a moment ....")
     time.sleep(2)
-    print('''              **********************************************
+    print(
+        """              **********************************************
                          Book added successfully
               **********************************************
               
-               ''')
+               """
+    )
 
     main()
 
@@ -42,10 +44,12 @@ def issueb():
     con.commit()
     print("wait a few seconds.....")
     time.sleep(1)
-    print(f'''              **********************************************
+    print(
+        f"""              **********************************************
                     Book successfully issued to {n}
               **********************************************
-    ''')
+    """
+    )
     bookup(co, -1)
 
 
@@ -61,14 +65,16 @@ def submitb():
     con.commit()
     print("wait a few seconds.....")
     time.sleep(1)
-    print(f'''              **********************************************
+    print(
+        f"""              **********************************************
                          Book successfully submitted {n}
               **********************************************
-    ''')
+    """
+    )
     bookup(co, 1)
 
 
-def bookup(co, u):#2 issue books
+def bookup(co, u):  # 2 issue books
     a = "select TOTAL from books where BCODE = %s"
     data = (co,)
     c = con.cursor()
@@ -90,10 +96,12 @@ def dbook():
     c.execute(a, data)
     con.commit()
     time.sleep(1)
-    print(f'''             **********************************************
+    print(
+        f"""             **********************************************
                     Book successfully deleted : book no {ac}
               **********************************************
-              ''')
+              """
+    )
     main()
 
 
@@ -112,7 +120,7 @@ def dispbook():
 
 
 def main():
-    a=('''                ***********************************************
+    a = """                ***********************************************
                 |               LIBRARY MANAGER               |
                 |                                             | 
                 |   1. ADD BOOK            2. ISSUE BOOK      |
@@ -121,8 +129,8 @@ def main():
                 |                                             |
                 |              5. DISPLAY BOOKS               |
                 ***********************************************
-                ''')
-    p=a.center(50)
+                """
+    p = a.center(50)
     print(p)
     choice = input("Enter the your Choice  : ? ")
     print("wait for a moment ....")
@@ -142,28 +150,40 @@ def main():
         print(" Wrong choice")
     main()
 
+
 def password():
-    ps = input('''              **********************************************
+    ps = input(
+        """              **********************************************
                 
                 PLEASE ENTER PASSWORD TO ASSES THE SOFTWARE :
                 
               **********************************************                                             
-    ''')              
+    """
+    )
     print("Password checking .....")
     time.sleep(1)
     print("pls wait....")
     time.sleep(1)
     if ps == "123456789":
-        c=con.cursor()
+        c = con.cursor()
         c.execute("create database IF NOT EXISTS project")
         c.execute("use project")
-        c.execute("CREATE TABLE IF NOT EXISTS books(bname varchar(50),bcode varchar(50),total int ,subject varchar (50))")
-        c.execute("CREATE TABLE IF NOT EXISTS issue(name varchar(50),regno varchar(10),bcode int ,issue varchar (50))")
-        c.execute("CREATE TABLE IF NOT EXISTS submit(name varchar(50),regno varchar(10),bcode int ,submit varchar (50))")
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS books(bname varchar(50),bcode varchar(50),total int ,subject varchar (50))"
+        )
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS issue(name varchar(50),regno varchar(10),bcode int ,issue varchar (50))"
+        )
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS submit(name varchar(50),regno varchar(10),bcode int ,submit varchar (50))"
+        )
         main()
     else:
         print("wrong password")
+
+
 password()
+
 '''mysql table project -
 mysql> desc books;
 +---------+-------------+------+-----+---------+-------+
