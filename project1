@@ -157,14 +157,13 @@ def password():
         c=con.cursor()
         c.execute("create database IF NOT EXISTS project")
         c.execute("use project")
-        c.execute("CREATE TABLE IF NOT EXISTS books(bname varchar(50),bcode varchar(50),total int ,subject varchar (50)")
-        c.execute("CREATE TABLE IF NOT EXISTS issue(name varchar(50),regno varchar(10),bcode int ,issue varchar (50)")
-        c.execute("CREATE TABLE IF NOT EXISTS submit(name varchar(50),regno varchar(10),bcode int ,submit varchar (50)")
+        c.execute("CREATE TABLE IF NOT EXISTS books(bname varchar(50),bcode varchar(50),total int ,subject varchar (50))")
+        c.execute("CREATE TABLE IF NOT EXISTS issue(name varchar(50),regno varchar(10),bcode int ,issue varchar (50))")
+        c.execute("CREATE TABLE IF NOT EXISTS submit(name varchar(50),regno varchar(10),bcode int ,submit varchar (50))")
         main()
     else:
         print("wrong password")
 password()
-
 '''mysql table project -
 mysql> desc books;
 +---------+-------------+------+-----+---------+-------+
