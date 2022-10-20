@@ -1,3 +1,4 @@
+import time
 import mysql.connector as a
 
 con = a.connect(
@@ -8,51 +9,66 @@ con = a.connect(
 
 
 def addbook():
-    bn = input("enter the book ")
-    c = input("enter the book code ")
-    t = input("enter books ")
-    s = input("enter the subject ")
+    bn = input("Enter the book           : ")
+    c = input("Enter the book code      : ")
+    t = input("Total book (int quaty)   : ")
+    s = input("Enter the subject        : ")
     data = (bn, c, t, s)
-    sql = 'insert books values(%s,%s,%s,%s)'
+    sql = "insert into books values(%s,%s,%s,%s)"
     c = con.cursor()
     c.execute(sql, data)
     con.commit()
     print("_____________________________________________________")
-    print("data entered successfully")
+    print("wait a moment ....")
+    time.sleep(2)
+    print('''              **********************************************
+                         Book added successfully
+              **********************************************
+              
+               ''')
+
     main()
 
 
 def issueb():
-    n = input("enter name ")
-    r = input("enter reg ")
-    co = input("enter book code ")
-    d = input("enter the date")
+    n = input("Enter name (returing)        : ")
+    r = input("Enter reg                    : ")
+    co = input("Enter book code              : ")
+    d = input("Enter the date(issued date)  : ")
     a = "insert into issue values(%s,%s,%s,%s)"
-    data = (n, r, co, d)
-    c = con.cursor()
-    c.execute(a,data)
-    con.commit()
-    print("______________________________________________________")
-    print("book issued to ", n)
-    bookup(co,-1)
-
-
-def submitb():
-    n = input("enter name ")
-    r = input("enter reg ")
-    co = input("enter book code ")
-    d = input("enter the date")
-    a = 'insert into issue values(%s,%s,%s,%s)'
     data = (n, r, co, d)
     c = con.cursor()
     c.execute(a, data)
     con.commit()
-    print("______________________________________________________")
-    print("book submitted", n)
-    bookup(co,1)
+    print("wait a few seconds.....")
+    time.sleep(1)
+    print(f'''              **********************************************
+                    Book successfully issued to {n}
+              **********************************************
+    ''')
+    bookup(co, -1)
 
 
-def bookup(co, u):
+def submitb():
+    n = input("Enter name                    : ")
+    r = input("Enter reg                     : ")
+    co = input("Enter book code               : ")
+    d = input("Enter the date(return date)   : ")
+    a = "insert into submit values(%s,%s,%s,%s)"
+    data = (n, r, co, d)
+    c = con.cursor()
+    c.execute(a, data)
+    con.commit()
+    print("wait a few seconds.....")
+    time.sleep(1)
+    print(f'''              **********************************************
+                         Book successfully submitted {n}
+              **********************************************
+    ''')
+    bookup(co, 1)
+
+
+def bookup(co, u):#2 issue books
     a = "select TOTAL from books where BCODE = %s"
     data = (co,)
     c = con.cursor()
@@ -67,12 +83,17 @@ def bookup(co, u):
 
 
 def dbook():
-    ac = input("Enter Book Code ")
-    a = 'delete from books where bcode = %s'
-    data = (ac, )
+    ac = input("Enter Book Code : ")
+    a = "delete from books where BCODE = %s"
+    data = (ac,)
     c = con.cursor()
     c.execute(a, data)
     con.commit()
+    time.sleep(1)
+    print(f'''             **********************************************
+                    Book successfully deleted : book no {ac}
+              **********************************************
+              ''')
     main()
 
 
@@ -91,29 +112,58 @@ def dispbook():
 
 
 def main():
-    print('''      LIBRARY MANAGER
-    1. ADD BOOK
-    2. ISSUE BOOK
-    3. SUBMIT BOOK
-    4. DELETE BOOK
-    5. DISPLAY BOOKS
-    ''''')
-    choice = input("Enter Task No : ")
+    a=('''                ***********************************************
+                |               LIBRARY MANAGER               |
+                |                                             | 
+                |   1. ADD BOOK            2. ISSUE BOOK      |
+                |                                             |
+                |   3. SUBMIT BOOK         4. DELETE BOOK     |
+                |                                             |
+                |              5. DISPLAY BOOKS               |
+                ***********************************************
+                ''')
+    p=a.center(50)
+    print(p)
+    choice = input("Enter the your Choice  : ? ")
+    print("wait for a moment ....")
+    time.sleep(2)
     print(">------------------------------------------<")
-    if (choice == "1"):
+    if choice == "1":
         addbook()
-    elif (choice == "2"):
+    elif choice == "2":
         issueb()
-    elif (choice == "3"):
+    elif choice == "3":
         submitb()
-    elif (choice == '4'):
+    elif choice == "4":
         dbook()
-    elif (choice == '5'):
+    elif choice == "5":
         dispbook()
     else:
         print(" Wrong choice")
-main()
+    main()
 
+def password():
+    ps = input('''              **********************************************
+                
+                PLEASE ENTER PASSWORD TO ASSES THE SOFTWARE :
+                
+              **********************************************                                             
+    ''')              
+    print("Password checking .....")
+    time.sleep(1)
+    print("pls wait....")
+    time.sleep(1)
+    if ps == "123456789":
+        c=con.cursor()
+        c.execute("create database IF NOT EXISTS project")
+        c.execute("use project")
+        c.execute("CREATE TABLE IF NOT EXISTS books(bname varchar(50),bcode varchar(50),total int ,subject varchar (50)")
+        c.execute("CREATE TABLE IF NOT EXISTS issue(name varchar(50),regno varchar(10),bcode int ,issue varchar (50)")
+        c.execute("CREATE TABLE IF NOT EXISTS submit(name varchar(50),regno varchar(10),bcode int ,submit varchar (50)")
+        main()
+    else:
+        print("wrong password")
+password()
 
 '''mysql table project -
 mysql> desc books;
