@@ -132,21 +132,54 @@ def dispbook():
         for i in range(50):
             print(" ")
     main()
+   
+   def modify():
+    bn = input("Enter the book           : ")
+    c = input("Enter the book code      : ")
+    t = input("Total book (int quaty)   : ")
+    s = input("Enter the subject        : ")
+    g = input("Enter the book code      : ")
+    data = (bn, c, t, s,g)
+    c = con.cursor()
+    c.execute(
+        "update books set bname='{}',bcode='{}',total='{}',subject='{}' where BCODE = '{}' ".format(
+            data[0], data[1], data[2], data[3], data[4]
+        )
+    )
+    con.commit()
+    print("_____________________________________________________")
+    print("wait a moment ....")
+    time.sleep(1)
+    print(
+        """              **********************************************
+                         Book added modified successfully
+              **********************************************
+              
+               """
+    )
+    x = input(" PRESS Y TO RETURN TO START MENU ")
+    if x in "Yy":
+        for i in range(50):
+            print(" ")
+    main()
+
     
 
 
 
 def main():
-    a=('''                ***********************************************
+        a = """                ***********************************************
                 |               LIBRARY MANAGER               |
                 |                                             | 
                 |   1. ADD BOOK            2. ISSUE BOOK      |
                 |                                             |
                 |   3. SUBMIT BOOK         4. DELETE BOOK     |
                 |                                             |
-                |              5. DISPLAY BOOKS               |
+                |   5. DISPLAY BOOKS       5. MODIFY BOOKS    |
+                |                                             |
+                |               7.SELECT BOOKS                |
                 ***********************************************
-                ''')
+                """
     p=a.center(50)
     print(p)
     time.sleep(1)
