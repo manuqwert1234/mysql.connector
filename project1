@@ -179,6 +179,22 @@ def fee():
     myresult = c.fetchall()
     c.execute("select *  from submit where bcode = '{}'").format(n)
     myresults = c.fetchall()
+
+    if myresult[3] > myresults[3]:
+        print("wait a few seconds.....")
+        time.sleep(1)
+        print("No fine")
+    elif myresult[3] > myresults[3]:
+
+        print("fine")
+        print("60 rs  ")
+    else:
+        print("wrong code")
+    x = input(" PRESS Y TO RETURN TO START MENU ")
+    if x in "Yy":
+        for i in range(50):
+            print(" ")
+    main()
     
            
     
