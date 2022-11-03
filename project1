@@ -1,3 +1,4 @@
+from re import T
 import time
 import mysql.connector as a
 
@@ -6,6 +7,24 @@ con = a.connect(
     user="root",
     database="project",
 )
+
+def selectbook():
+    n = input("Enter the book code : ")
+    c = con.cursor()
+    c.execute("select * from books where BCODE = '{}' ".format(n))
+    myresult = c.fetchall()
+    for i in myresult:
+        print("Book Name : ", i[0])
+        print("Book Code :", i[1])
+        print("Total : ", i[2])
+        print("subject :", i[3])
+        print(">------------------------------------------<")
+    x = input(" PRESS Y TO RETURN TO START MENU ")
+    if x in "Yy":
+        for i in range(50):
+            print(" ")
+    main()
+
 
 
 def addbook():
@@ -79,22 +98,12 @@ def submitb():
     bookup(co, 1)
 
 
-def bookup(co, u):#2 issue books
-    a = "select TOTAL from books where BCODE = %s"
-    data = (co,)
+def bookup(co, u):
     c = con.cursor()
-    c.execute(a, data)
-    myresult = c.fetchone()
-    t = myresult[0] + u
-    sql = "update books set TOTAL = %s where BCODE = %s"
-    d = (t, co)
-    c.execute(sql, d)
+    c.execute(
+        "update books set total = total + {} where BCODE = '{}' ".format(u, co)
+    )
     con.commit()
-    x = input(" PRESS Y TO RETURN TO START MENU ")
-    if x in "Yy":
-        for i in range(50):
-            print(" ")
-    main()
 
 
 def dbook():
@@ -133,7 +142,7 @@ def dispbook():
             print(" ")
     main()
    
-   def modify():
+def modify():
     bn = input("Enter the book           : ")
     c = input("Enter the book code      : ")
     t = input("Total book (int quaty)   : ")
@@ -163,24 +172,36 @@ def dispbook():
             print(" ")
     main()
 
+def fee():
+    n=input("Enter code : ")
+    c = con.cursor()
+    c.execute("select *  from issue where bcode = '{}' ").format(n)
+    myresult = c.fetchall()
+    c.execute("select *  from submit where bcode = '{}'").format(n)
+    myresults = c.fetchall()
+    
+           
+    
+
     
 
 
-
 def main():
-        a = """                ***********************************************
-                |               LIBRARY MANAGER               |
-                |                                             | 
-                |   1. ADD BOOK            2. ISSUE BOOK      |
-                |                                             |
-                |   3. SUBMIT BOOK         4. DELETE BOOK     |
-                |                                             |
-                |   5. DISPLAY BOOKS       5. MODIFY BOOKS    |
-                |                                             |
-                |               7.SELECT BOOKS                |
-                ***********************************************
+
+    
+    a = """            ***********************************************
+            |               LIBRARY MANAGER               |
+            |                                             | 
+            |   1. ADD BOOK            2. ISSUE BOOK      |
+            |                                             |
+            |   3. SUBMIT BOOK         4. DELETE BOOK     |
+            |                                             |
+            |   5. DISPLAY BOOKS       5. MODIFY BOOKS    |
+            |                                             |
+            |               7.SELECT BOOKS                |
+            ***********************************************
                 """
-    p=a.center(50)
+    p = a.center(50)
     print(p)
     time.sleep(1)
     for i in range(10):
@@ -201,11 +222,16 @@ def main():
         dbook()
     elif choice == "5":
         dispbook()
+    elif choice == "6":
+        modify()
+    elif choice == "7":
+        selectbook()
     else:
         print(" Wrong choice")
-    main()
+main()
 
 def password():
+
     ps = input('''              **********************************************
                 
                 PLEASE ENTER PASSWORD TO ASSES THE SOFTWARE :
@@ -227,7 +253,7 @@ def password():
         main()
     else:
         print("wrong password")
-password()
+    password()
 
 '''mysql table project -
 mysql> desc books;
